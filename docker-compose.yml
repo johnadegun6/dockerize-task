@@ -12,9 +12,18 @@ services:
   mvp_db:
     image: postgres:13
     volumes:
-      - postgre_data:'/var/lib/postgres/data'
+      - postgres_data:/var/lib/postgresql/data/
     environment:
-      - "POSTGRES_HOST_AUTH_METHOD=true"
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+  react:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
 
 volumes:
-  postgre_data:
+  postgres_data:
